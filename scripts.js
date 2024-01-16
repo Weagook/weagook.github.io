@@ -134,6 +134,8 @@ const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
     if ($('#name').val().trim() != '' && $('#number').val().trim() != '') {
+        console.log("До: " + $('#name').val());
+        console.log("После: " + $('#name').val().trim());
         if ($('#number').val().length < 10 || $('#number').val().length > 11) {
             $('.message-error').text('Введите корректный номер телефона!')
             event.preventDefault();
