@@ -137,6 +137,8 @@ async function finishOrder(event) {
     
     let name = document.getElementById("form-name").value;
     let phone = document.getElementById("form-number").value;
+    console.log(name);
+    console.log(phone);
     let text = "Имя: " + name + ", Телефон: " + phone;
     $('.hpen').html(text)
     let response = await fetch(api, {
@@ -154,10 +156,5 @@ async function finishOrder(event) {
     }
     else {
         $('.message-error').text('Говно')
-    }
-    while (true) {
-        console.log('Бесконечный цикл');
-        // Добавьте задержку, чтобы не перегружать консоль слишком быстро
-        await new Promise(resolve => setTimeout(resolve, 1000));
     }
 }
