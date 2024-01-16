@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     sendDataButton.addEventListener('click', function (event) {
         event.preventDefault();
-        finishOrder();
+        finishOrder(event); // Передайте объект события в функцию finishOrder
     });
 });
 
