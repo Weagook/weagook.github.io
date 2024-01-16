@@ -133,6 +133,8 @@ const tg_chat_id = '-1001993957039'
 const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
+    event.preventDefault();
+    
     let name = document.getElementById("name").value;
     let phone = document.getElementById("number").value;
     let text = "Имя: " + name + ", Телефон: " + phone;
