@@ -133,29 +133,24 @@ const tg_chat_id = '-1001993957039'
 const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
-    let text = "Тестовое сообщение ебать";
     let name = document.getElementById("name");
     let phone = document.getElementById("number");
-    console.log("Получайте: " + name + " " + phone);
-    let data = {
-        name: name,
-        phone: phone
+    let text = "Имя: " + name + ", Телефон: " + phone;
+
+    let response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chat_id: tg_chat_id,
+            text,
+        })
+    });
+    if (response.ok) {
+        $('.message-error').text('Успешно')
     }
-    console.log(data);
-//     let response = await fetch(api, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//             chat_id: tg_chat_id,
-//             data,
-//         })
-//     });
-//     if (response.ok) {
-//         $('.message-error').text('Успешно')
-//     }
-//     else {
-//         $('.message-error').text('Говно')
-//     }
+    else {
+        $('.message-error').text('Говно')
+    }
 }
