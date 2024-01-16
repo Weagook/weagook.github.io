@@ -158,4 +158,4 @@ async function finishOrder(event) {
 //     else {
 //         $('.message-error').text('Говно')
 //     }
-// }
+}
