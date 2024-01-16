@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', function () {
+    var sendDataButton = document.getElementById('send-data');
+
+    sendDataButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        finishOrder();
+    });
+});
+
 let tg = window.Telegram.WebApp;
 product_list = []
 $(window).on('scroll', handleScroll);
@@ -128,20 +137,12 @@ function sendData() {
     $('#name').val('Ваше имя');
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var sendDataButton = document.getElementById('send-data');
-
-    sendDataButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        finishOrder();
-    });
-});
-
 const tg_bot_token = '6303435680:AAG3JpBvqdFp2Walccwv7Gu5_aiQQ1F2TUs'
 const tg_chat_id = '-1001993957039'
 const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
+    event.preventDefault();
     var form = document.querySelector('.communication');
 
     var name = form.querySelector('#form-name').value;
