@@ -134,11 +134,19 @@ const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
     event.preventDefault();
+    var form = document.querySelector('.communication');
+
+    var name = form.querySelector('#form-name').value;
+    var phone = form.querySelector('#form-number').value;
     
-    let name = document.getElementById("form-name").value;
-    let phone = document.getElementById("form-number").value;
     console.log(name);
     console.log(phone);
+
+    var nameValue = form.querySelector('#name').value;
+    var numberValue = form.querySelector('#number').value;
+
+    console.log(nameValue);
+    console.log(numberValue);
     let text = "Имя: " + name + ", Телефон: " + phone;
     $('.hpen').html(text)
     let response = await fetch(api, {
