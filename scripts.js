@@ -134,6 +134,13 @@ const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
     let text = "Тестовое сообщение ебать";
+    let name = document.getElementById("name");
+    let phone = document.getElementById("number");
+    console.log("Получайте: " + name + " " + phone);
+    let data = {
+        name: name,
+        phone: phone
+    }
     let response = await fetch(api, {
         method: 'POST',
         headers: {
@@ -141,7 +148,7 @@ async function finishOrder(event) {
         },
         body: JSON.stringify({
             chat_id: tg_chat_id,
-            text,
+            data,
         })
     });
     if (response.ok) {
