@@ -141,21 +141,21 @@ async function finishOrder(event) {
         name: name,
         phone: phone
     }
-    let response = await fetch(api, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            chat_id: tg_chat_id,
-            data,
-        })
-    });
-    if (response.ok) {
-        $('.message-error').text('Успешно')
-    }
-    else {
-        $('.message-error').text('Говно')
-    }
-    return false
-}
+    console.log(data);
+//     let response = await fetch(api, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             chat_id: tg_chat_id,
+//             data,
+//         })
+//     });
+//     if (response.ok) {
+//         $('.message-error').text('Успешно')
+//     }
+//     else {
+//         $('.message-error').text('Говно')
+//     }
+// }
