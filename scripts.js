@@ -138,7 +138,13 @@ async function finishOrder(event) {
     const formData = new FormData(form)
     const formDataObject = Object.fromEntries(formData.entries())
 
-    let text = 'Заявка от ' + formDataObject.name + '\n' + 'Номер: ' + formDataObject.number;
+    let text = 'Заявка от ' + formDataObject.name + '\n' + 'Номер: ' + formDataObject.number + '\n' + '------\n' + 'Список товаров:\n'
+    
+    for(i = 0; i < product_list.length; i++) {
+        product = product_list[i]
+        text += product.name + ' - ' + product.quantity + ' шт.' + ' - ' + product.total + ' тг.\n'
+    }
+    text += '------\n' + 'Общая сумма: ' + purchaseAmount + ' тг.'
 
     let response = await fetch(api, {
         method: 'POST',
