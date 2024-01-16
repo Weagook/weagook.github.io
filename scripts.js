@@ -1,12 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var sendDataButton = document.getElementById('send-data');
-
-    sendDataButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        finishOrder(event); // Передайте объект события в функцию finishOrder
-    });
-});
-
 let tg = window.Telegram.WebApp;
 product_list = []
 $(window).on('scroll', handleScroll);
@@ -143,17 +134,12 @@ const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
     event.preventDefault();
-    var form = document.querySelector('.communication');
+    const form = event.target
+    const formData = new FormData(form)
+    const formDataObject = Object.fromEntries(formData.entries())
 
-    var name = form.querySelector('#form-name').value;
-    var phone = form.querySelector('#form-number').value;
-    
-    console.log(name);
-    console.log(phone);
+    let text = 'Заявка от ' + formDataObject.name + '\n' + 'Номер: ' + formDataObject.number;
 
-
-    let text = "Имя: " + name + ", Телефон: " + phone;
-    $('.hpen').html(text)
     let response = await fetch(api, {
         method: 'POST',
         headers: {
