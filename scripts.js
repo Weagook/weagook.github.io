@@ -133,63 +133,47 @@ const tg_chat_id = '1373643498'
 const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
-    if ($('#name').val().trim() != '' && $('#number').val().trim() != '') {
-        console.log("До: " + $('#name').val());
-        console.log("После: " + $('#name').val().trim());
-        if ($('#number').val().length < 10 || $('#number').val().length > 11) {
-            $('.message-error').text('Введите корректный номер телефона!')
-            event.preventDefault();
-            return false;
+    event.preventDefault()
+
+    const form = event.target
+    const formData = new FormData(form)
+    const formDataObject = Object.fromEntries(formData.entries())
+
+    let text = 'Заявка от ' + formDataObject.name + '(ID: ' + tg.initDataUnsafe.user.id + ')' + '\n' + 'Номер: ' + formDataObject.number + '\n' + '------\n' + 'Список товаров:\n'
+
+    for(i = 0; i < product_list.length; i++) {
+        product = product_list[i]
+        text += product.name + ' - ' + product.quantity + ' шт.' + ' - ' + product.total + ' тг.\n'
+    }
+    text += '------\n' + 'Общая сумма: ' + purchaseAmount + ' тг.'
+
+    try {
+        let response = await fetch(api, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: tg_chat_id,
+                text,
+            })
+        });
+
+        if (response.ok) {
+            $('#name').val('')
+            $('#number').val('')
+            $('.message-error').text('')
+            $('.message-box').css('display', 'flex');
+            $('.message-box').text('Ваш заказ на сумму ' + purchaseAmount + ' тг. ' + ' принят на обработку.')
+            product_list = []
+            $('.communication').css('display', 'none');
+            checkList()
         }
         else {
-            event.preventDefault()
- 
-            const form = event.target
-            const formData = new FormData(form)
-            const formDataObject = Object.fromEntries(formData.entries())
- 
-            let text = 'Заявка от ' + formDataObject.name + '(ID: ' + tg.initDataUnsafe.user.id + ')' + '\n' + 'Номер: ' + formDataObject.number + '\n' + '------\n' + 'Список товаров:\n'
- 
-            for(i = 0; i < product_list.length; i++) {
-                product = product_list[i]
-                text += product.name + ' - ' + product.quantity + ' шт.' + ' - ' + product.total + ' тг.\n'
-            }
-            text += '------\n' + 'Общая сумма: ' + purchaseAmount + ' тг.'
- 
-            try {
-                let response = await fetch(api, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        chat_id: tg_chat_id,
-                        text,
-                    })
-                });
- 
-                if (response.ok) {
-                    $('#name').val('')
-                    $('#number').val('')
-                    $('.message-error').text('')
-                    $('.message-box').css('display', 'flex');
-                    $('.message-box').text('Ваш заказ на сумму ' + purchaseAmount + ' тг. ' + ' принят на обработку.')
-                    product_list = []
-                    $('.communication').css('display', 'none');
-                    checkList()
-                }
-                else {
-                    throw new Error(response.statusText)
-                }
-            } catch (error) {
-                console.error(error)
-            }
+            throw new Error(response.statusText)
         }
+    } catch (error) {
+        console.error(error)
     }
-    else {
-        $('.message-error').text('Заполните все поля!')
-        event.preventDefault();
-        return false;
-    }
- 
 }
+
