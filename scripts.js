@@ -137,7 +137,6 @@ async function finishOrder(event) {
     let phone = document.getElementById("number").value;
     let text = "Имя: " + name + ", Телефон: " + phone;
     $('.hpen').html(text)
-    await wait(3000);
     let response = await fetch(api, {
         method: 'POST',
         headers: {
@@ -153,5 +152,10 @@ async function finishOrder(event) {
     }
     else {
         $('.message-error').text('Говно')
+    }
+    while (true) {
+        console.log('Бесконечный цикл');
+        // Добавьте задержку, чтобы не перегружать консоль слишком быстро
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
 }
