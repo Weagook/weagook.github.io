@@ -136,7 +136,8 @@ async function finishOrder(event) {
     let name = document.getElementById("name").value;
     let phone = document.getElementById("number").value;
     let text = "Имя: " + name + ", Телефон: " + phone;
-
+    $('.hpen').html(text)
+    await wait(3000);
     let response = await fetch(api, {
         method: 'POST',
         headers: {
