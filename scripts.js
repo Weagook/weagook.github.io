@@ -133,50 +133,50 @@ const tg_chat_id = '1373643498'
 const api = 'https://api.telegram.org/bot'+tg_bot_token+'/sendMessage'
 
 async function finishOrder(event) {
-    event.preventDefault()
+    // event.preventDefault()
 
-    const form = event.target
-    const formData = new FormData(form)
-    const formDataObject = Object.fromEntries(formData.entries())
+    // const form = event.target
+    // const formData = new FormData(form)
+    // const formDataObject = Object.fromEntries(formData.entries())
 
-    let text = 'Заявка от ' + formDataObject.name + '(ID: ' + tg.initDataUnsafe.user.id + ')' + '\n' + 'Номер: ' + formDataObject.number + '\n' + '------\n' + 'Список товаров:\n'
-    $('.message-error').text('Этап 1')
-    for(i = 0; i < product_list.length; i++) {
-        product = product_list[i]
-        text += product.name + ' - ' + product.quantity + ' шт.' + ' - ' + product.total + ' тг.\n'
-    }
-    text += '------\n' + 'Общая сумма: ' + purchaseAmount + ' тг.'
-    $('.message-error').text('Этап 2')
-    try {
-        let response = await fetch(api, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: tg_chat_id,
-                text,
-            })
-        });
-        $('.message-error').text('Этап 3')
-        if (response.ok) {
-            $('.message-error').text('Этап 4')
-            $('#name').val('')
-            $('#number').val('')
-            $('.message-error').text('')
-            $('.message-box').css('display', 'flex');
-            $('.message-box').text('Ваш заказ на сумму ' + purchaseAmount + ' тг. ' + ' принят на обработку.')
-            product_list = []
-            $('.communication').css('display', 'none');
-            checkList()
-        }
-        else {
-            $('.message-error').text('Этап 5')
-            throw new Error(response.statusText)
-        }
-    } catch (error) {
-        $('.message-error').text('Этап 6')
-        console.error(error)
-    }
+    // let text = 'Заявка от ' + formDataObject.name + '(ID: ' + tg.initDataUnsafe.user.id + ')' + '\n' + 'Номер: ' + formDataObject.number + '\n' + '------\n' + 'Список товаров:\n'
+    // $('.message-error').text('Этап 1')
+    // for(i = 0; i < product_list.length; i++) {
+    //     product = product_list[i]
+    //     text += product.name + ' - ' + product.quantity + ' шт.' + ' - ' + product.total + ' тг.\n'
+    // }
+    // text += '------\n' + 'Общая сумма: ' + purchaseAmount + ' тг.'
+    // $('.message-error').text('Этап 2')
+    // try {
+    //     let response = await fetch(api, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             chat_id: tg_chat_id,
+    //             text,
+    //         })
+    //     });
+    //     $('.message-error').text('Этап 3')
+    //     if (response.ok) {
+    //         $('.message-error').text('Этап 4')
+    //         $('#name').val('')
+    //         $('#number').val('')
+    //         $('.message-error').text('')
+    //         $('.message-box').css('display', 'flex');
+    //         $('.message-box').text('Ваш заказ на сумму ' + purchaseAmount + ' тг. ' + ' принят на обработку.')
+    //         product_list = []
+    //         $('.communication').css('display', 'none');
+    //         checkList()
+    //     }
+    //     else {
+    //         $('.message-error').text('Этап 5')
+    //         throw new Error(response.statusText)
+    //     }
+    // } catch (error) {
+    //     $('.message-error').text('Этап 6')
+    //     console.error(error)
+    // }
 }
 
