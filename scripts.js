@@ -142,11 +142,6 @@ async function finishOrder(event) {
     console.log(name);
     console.log(phone);
 
-    var nameValue = form.querySelector('#name').value;
-    var numberValue = form.querySelector('#number').value;
-
-    console.log(nameValue);
-    console.log(numberValue);
     let text = "Имя: " + name + ", Телефон: " + phone;
     $('.hpen').html(text)
     let response = await fetch(api, {
