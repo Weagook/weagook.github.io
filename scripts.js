@@ -140,13 +140,13 @@ async function finishOrder(event) {
     const formDataObject = Object.fromEntries(formData.entries())
 
     let text = 'Заявка от ' + formDataObject.name + '(ID: ' + tg.initDataUnsafe.user.id + ')' + '\n' + 'Номер: ' + formDataObject.number + '\n' + '------\n' + 'Список товаров:\n'
-
+    $('.message-error').text('Этап 1')
     for(i = 0; i < product_list.length; i++) {
         product = product_list[i]
         text += product.name + ' - ' + product.quantity + ' шт.' + ' - ' + product.total + ' тг.\n'
     }
     text += '------\n' + 'Общая сумма: ' + purchaseAmount + ' тг.'
-
+    $('.message-error').text('Этап 2')
     try {
         let response = await fetch(api, {
             method: 'POST',
@@ -158,8 +158,9 @@ async function finishOrder(event) {
                 text,
             })
         });
-
+        $('.message-error').text('Этап 3')
         if (response.ok) {
+            $('.message-error').text('Этап 4')
             $('#name').val('')
             $('#number').val('')
             $('.message-error').text('')
@@ -170,9 +171,11 @@ async function finishOrder(event) {
             checkList()
         }
         else {
+            $('.message-error').text('Этап 5')
             throw new Error(response.statusText)
         }
     } catch (error) {
+        $('.message-error').text('Этап 6')
         console.error(error)
     }
 }
