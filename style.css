@@ -367,3 +367,21 @@ input::-webkit-inner-spin-button {
     width: 100%;
     text-align: center;
 }
+
+.more-info-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #888; /* Серый фон */
+    color: #fff; /* Белый текст */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+}
+
+.more-info-modal p {
+    margin-bottom: 10px;
+}
