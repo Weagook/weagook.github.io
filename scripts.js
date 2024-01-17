@@ -29,7 +29,7 @@ $(document).ready(function() {
         
         var productName = listItem.find('p').text();
         var quantity = parseInt(listItem.find('input').val());
-        var price = parseFloat(listItem.find('button').text().replace(' тг.', ''));
+        var price = parseFloat(listItem.find('.add-product').text().replace(' тг.', ''));
     
         var total = quantity * price;
 
