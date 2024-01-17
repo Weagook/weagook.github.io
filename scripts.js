@@ -24,7 +24,7 @@ $(document).ready(function() {
         }, 500);
     });
 
-    $('li button').on('click', function() {
+    $('.add-product').on('click', function() {
         var listItem = $(this).closest('li');
         
         var productName = listItem.find('p').text();
@@ -156,10 +156,28 @@ async function finishOrder(event) {
             text,
         })
     });
-    if (response.ok) {
-        $('.message-error').text('Успешно')
-    }
-    else {
-        $('.message-error').text('Говно')
-    }
 }
+
+function showMoreInfo(productID) {
+    var modal = document.getElementById('modal_' + productID);
+    modal.style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    document.body.classList.add('no-scroll');
+}
+
+function closeMoreInfo(productID) {
+    var modal = document.getElementById('modal_' + productID);
+    modal.style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+    document.body.classList.remove('no-scroll');
+}
+
+// Закрывать модальное окно при клике на затемненную область
+document.getElementById('overlay').addEventListener('click', function () {
+    var modals = document.getElementsByClassName('more-info-modal');
+    for (var i = 0; i < modals.length; i++) {
+        modals[i].style.display = 'none';
+    }
+    this.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+});
