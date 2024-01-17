@@ -156,6 +156,16 @@ async function finishOrder(event) {
             text,
         })
     });
+    if (response.ok) {
+        $('#name').val('')
+        $('#number').val('')
+        $('.message-error').text('')
+        $('.message-box').css('display', 'flex');
+        $('.message-box').text('Ваш заказ на сумму ' + purchaseAmount + ' тг. ' + ' принят на обработку.')
+        product_list = []
+        $('.communication').css('display', 'none');
+        checkList()
+    }
 }
 
 function showMoreInfo(productID) {
